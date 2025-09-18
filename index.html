@@ -1,101 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Directorio de Contactos</title>
-<style>
-  body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
-  h1 { text-align: center; }
-  .contact { background: white; padding: 15px; margin: 10px auto; border-radius: 8px; max-width: 400px; box-shadow: 0 0 8px rgba(0,0,0,0.1);}
-  .name { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
-  .phone { color: #555; margin-bottom: 10px; }
-  button {
-    background-color: #007bff; color: white; border: none; padding: 8px 15px; border-radius: 5px;
-    cursor: pointer; margin-right: 5px; font-size: 0.9em;
-  }
-  button:hover { background-color: #0056b3; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Directorio Pro — Contactos</title>
+  <meta name="description" content="Directorio de contactos con acciones: llamar, SMS, WhatsApp, copiar número y compartir." />
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#98a0b3; --accent:#00d084; --glass: rgba(255,255,255,0.03);
+      --maxw:980px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#071021 0%, #0b1a2a 100%);color:#e6eef8;-webkit-font-smoothing:antialiased;}
+    header{max-width:var(--maxw);margin:28px auto;padding:22px;border-radius:14px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(2,6,23,0.6);display:flex;gap:18px;align-items:center}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#00a3ff);font-weight:700;color:#012;box-shadow:0 6px 18px rgba(0,208,132,0.12)}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .controls{margin-left:auto;display:flex;gap:12px;align-items:center}
+    .search{background:var(--glass);padding:10px 12px;border-radius:10px;display:flex;gap:8px;align-items:center;min-width:250px}
+    .search input{background:transparent;border:0;outline:none;color:inherit;font-size:14px;width:220px}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:9px 12px;border-radius:10px;color:var(--accent);cursor:pointer;font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#00a3ff);color:#042;box-shadow:0 6px 18px rgba(0,208,132,0.08);border:none}
+
+    main{max-width:var(--maxw);margin:20px auto;padding:18px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 20px rgba(2,6,23,0.6);display:flex;flex-direction:column;gap:8px}
+    .top{display:flex;align-items:center;gap:12px}
+    .avatar{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#06324a 30%, #004b3b);display:grid;place-items:center;font-weight:700;color:var(--accent)}
+    .meta{flex:1}
+    .name{font-weight:700;font-size:15px}
+    .phone{color:var(--muted);font-size:13px}
+
+    .actions{display:flex;gap:8px;margin-top:6px}
+    .action{flex:1;padding:9px;border-radius:9px;border:0;background:rgba(255,255,255,0.02);color:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center;font-weight:600}
+    .action.call{border-left:4px solid rgba(0,200,120,0.12)}
+    .action.whatsapp{background:linear-gradient(90deg,#075e54 0%, #25d366 100%);color:#052;}
+    .small{font-size:12px;color:var(--muted)}
+
+    footer{max-width:var(--maxw);margin:24px auto;text-align:center;color:var(--muted);font-size:13px}
+
+    @media (max-width:520px){header{padding:12px;gap:10px}.search input{width:120px}}
+  </style>
 </head>
 <body>
-<h1>Directorio de Contactos</h1>
+  <header>
+    <div class="brand">
+      <div class="logo">DC</div>
+      <div>
+        <h1>Directorio de Contactos</h1>
+        <p class="lead">Acciones rápidas: llamar, SMS, WhatsApp, copiar y compartir</p>
+      </div>
+    </div>
 
-<div class="contact">
-  <div class="name">MONITOREO ALFA Y SIGMA</div>
-  <div class="phone">33 3400 5492</div>
-  <button onclick="location.href='tel:+523334005492'">Llamar</button>
-  <button onclick="location.href='sms:+523334005492'">Mensaje</button>
-</div>
+    <div class="controls">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/><path d="M11 18a7 7 0 100-14 7 7 0 000 14z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/></svg>
+        <input id="q" placeholder="Buscar contacto o número..." oninput="filter()" />
+      </div>
+      <button class="btn" onclick="copyAll()">Copiar todos</button>
+      <button class="btn primary" onclick="downloadVCard()">Exportar vCard</button>
+    </div>
+  </header>
 
-<div class="contact">
-  <div class="name">MONITOREO BRAVO Y DELTA</div>
-  <div class="phone">33 2833 0182</div>
-  <button onclick="location.href='tel:+523328330182'">Llamar</button>
-  <button onclick="location.href='sms:+523328330182'">Mensaje</button>
-</div>
+  <main>
+    <div id="list" class="grid"></div>
+  </main>
 
-<div class="contact">
-  <div class="name">MONITOREO LIDER MONITOREO</div>
-  <div class="phone">33 3454 6535</div>
-  <button onclick="location.href='tel:+523334546535'">Llamar</button>
-  <button onclick="location.href='sms:+523334546535'">Mensaje</button>
-</div>
+  <footer>Directorio generado — Puedes personalizar contactos en el arreglo <code>CONTACTS</code> dentro del código.</footer>
 
-<div class="contact">
-  <div class="name">FINIQUITOS</div>
-  <div class="phone">33 3201 6865</div>
-  <button onclick="location.href='tel:+523332016865'">Llamar</button>
-  <button onclick="location.href='sms:+523332016865'">Mensaje</button>
-</div>
+  <script>
+    // Datos de contactos (editar aquí)
+    const CONTACTS = [
+      { name: 'MONITOREO ALFA Y SIGMA', phone: '33 3400 5492' },
+      { name: 'MONITOREO BRAVO Y DELTA', phone: '33 2833 0182' },
+      { name: 'MONITOREO LIDER MONITOREO', phone: '33 3454 6535' },
+      { name: 'FINIQUITOS', phone: '33 3201 6865' },
+      { name: 'DIRECTOR RECURSOS HUMANOS', phone: '33 3201 0449' },
+      { name: 'RECLUTAMIENTO', phone: '33 1865 8787' },
+      { name: 'RECURSOS HUMANOS', phone: '33 1248 4767' },
+      { name: 'RECURSOS HUMANOS TLJ', phone: '33 2834 5225' },
+      { name: 'RECLUTAMIENTO', phone: '33 1186 9575' },
+      { name: 'ALMACEN', phone: '33 1865 8784' },
+      { name: 'CENTRO DE CONTROL', phone: '33 1865 8783' }
+    ];
 
-<div class="contact">
-  <div class="name">DIRECTOR RECURSOS HUMANOS</div>
-  <div class="phone">33 3201 0449</div>
-  <button onclick="location.href='tel:+523332010449'">Llamar</button>
-  <button onclick="location.href='sms:+523332010449'">Mensaje</button>
-</div>
+    // Utilities
+    const sanitize = s => s.replace(/[^0-9]/g, ''); // keep digits
+    const intl = p => '52' + sanitize(p); // Mexico country code (without +)
 
-<div class="contact">
-  <div class="name">RECLUTAMIENTO</div>
-  <div class="phone">33 1865 8787</div>
-  <button onclick="location.href='tel:+523318658787'">Llamar</button>
-  <button onclick="location.href='sms:+523318658787'">Mensaje</button>
-</div>
+    function makeCard(c){
+      const div = document.createElement('div'); div.className='card';
+      div.innerHTML = `
+        <div class="top">
+          <div class="avatar">${getInitials(c.name)}</div>
+          <div class="meta">
+            <div class="name">${escapeHTML(c.name)}</div>
+            <div class="phone">${escapeHTML(c.phone)}</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="action call" onclick="call('${sanitize(c.phone)}')">📞 Llamar</button>
+          <button class="action" onclick="sms('${sanitize(c.phone)}')">✉️ SMS</button>
+          <button class="action whatsapp" onclick="whatsapp('${sanitize(c.phone)}','Hola,%20me%20puedes%20apoyar?')">💬 WhatsApp</button>
+          <button class="action" onclick="copy('${c.phone}')">📋 Copiar</button>
+        </div>
+        <div class="small">Número internacional: <strong>${intl(c.phone)}</strong></div>
+      `;
+      return div;
+    }
 
-<div class="contact">
-  <div class="name">RECURSOS HUMANOS</div>
-  <div class="phone">33 1248 4767</div>
-  <button onclick="location.href='tel:+523312484767'">Llamar</button>
-  <button onclick="location.href='sms:+523312484767'">Mensaje</button>
-</div>
+    function render(list){
+      const container = document.getElementById('list'); container.innerHTML='';
+      list.forEach(c=>container.appendChild(makeCard(c)));
+    }
 
-<div class="contact">
-  <div class="name">RECURSOS HUMANOS TLJ</div>
-  <div class="phone">33 2834 5225</div>
-  <button onclick="location.href='tel:+523328345225'">Llamar</button>
-  <button onclick="location.href='sms:+523328345225'">Mensaje</button>
-</div>
+    function filter(){
+      const q = document.getElementById('q').value.toLowerCase();
+      const filtered = CONTACTS.filter(c=> (c.name+c.phone).toLowerCase().includes(q));
+      render(filtered);
+    }
 
-<div class="contact">
-  <div class="name">RECLUTAMIENTO</div>
-  <div class="phone">33 1186 9575</div>
-  <button onclick="location.href='tel:+523311869575'">Llamar</button>
-  <button onclick="location.href='sms:+523311869575'">Mensaje</button>
-</div>
+    // Actions
+    function call(num){ window.location.href = 'tel:+52' + num; }
+    function sms(num){ window.location.href = 'sms:+52' + num; }
+    function whatsapp(num, message){ const u = `https://wa.me/52${num}?text=${encodeURIComponent(message)}`; window.open(u,'_blank'); }
+    function copy(text){ navigator.clipboard.writeText(text).then(()=>toast('Copiado al portapapeles')) }
+    function copyAll(){ const all = CONTACTS.map(c=>`${c.name} — ${c.phone}`).join('\n'); navigator.clipboard.writeText(all).then(()=>toast('Listado copiado')) }
 
-<div class="contact">
-  <div class="name">ALMACEN</div>
-  <div class="phone">33 1865 8784</div>
-  <button onclick="location.href='tel:+523318658784'">Llamar</button>
-  <button onclick="location.href='sms:+523318658784'">Mensaje</button>
-</div>
+    function downloadVCard(){
+      const v = CONTACTS.map(c=>{
+        const n = c.name.replace(/\n/g,' ');
+        const p = sanitize(c.phone);
+        return `BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL;TYPE=CELL:+52${p}\nEND:VCARD`;
+      }).join('\n');
+      const blob = new Blob([v], {type:'text/vcard'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'contactos.vcf'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
 
-<div class="contact">
-  <div class="name">CENTRO DE CONTROL</div>
-  <div class="phone">33 1865 8783</div>
-  <button onclick="location.href='tel:+523318658783'">Llamar</button>
-  <button onclick="location.href='sms:+523318658783'">Mensaje</button>
-</div>
+    // Helpers
+    function escapeHTML(s){ return String(s).replace(/[&<>\"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])) }
+    function getInitials(n){ return n.split(' ').slice(0,2).map(x=>x[0]||'').join('').toUpperCase(); }
+    function toast(msg){
+      const t = document.createElement('div'); t.textContent=msg; t.style.position='fixed'; t.style.right='18px'; t.style.bottom='18px'; t.style.padding='10px 14px'; t.style.background='rgba(0,0,0,0.6)'; t.style.border='1px solid rgba(255,255,255,0.04)'; t.style.borderRadius='10px'; t.style.color='#dfeffb'; t.style.zIndex=9999; document.body.appendChild(t);
+      setTimeout(()=>t.remove(),2200);
+    }
 
+    // Inicializar
+    render(CONTACTS);
+  </script>
 </body>
 </html>
