@@ -62,11 +62,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             transition: transform 0.15s ease, opacity 0.15s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
         .btn-action:active {
@@ -220,35 +221,37 @@
                 card.className = `p-3.5 rounded-2xl bg-white dark:bg-caherengo-cardDark border border-slate-200 dark:border-caherengo-borderDark/80 shadow-sm transition-all`;
 
                 card.innerHTML = `
-                    <div class="flex items-center justify-between gap-2 mb-3">
-                        <div class="flex items-center space-x-2.5 min-w-0">
-                            <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-caherengo-bgDark border border-slate-200 dark:border-caherengo-borderDark text-caherengo-gold flex items-center justify-center shrink-0">
+                    <!-- Encabezado de la Tarjeta con Puesto Completo -->
+                    <div class="flex items-start justify-between gap-2 mb-3">
+                        <div class="flex items-start space-x-2.5 min-w-0 flex-1">
+                            <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-caherengo-bgDark border border-slate-200 dark:border-caherengo-borderDark text-caherengo-gold flex items-center justify-center shrink-0 mt-0.5">
                                 <i data-lucide="${c.icon}" class="w-4 h-4"></i>
                             </div>
-                            <div class="min-w-0">
-                                <span class="inline-block px-2 py-0.5 text-[9px] font-extrabold rounded bg-caherengo-gold/20 text-amber-600 dark:text-caherengo-gold uppercase tracking-wider mb-0.5">
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block px-2 py-0.5 text-[9px] font-extrabold rounded bg-caherengo-gold/20 text-amber-600 dark:text-caherengo-gold uppercase tracking-wider mb-1">
                                     ${c.category}
                                 </span>
-                                <h2 class="font-extrabold text-xs text-slate-800 dark:text-slate-100 leading-snug truncate">${c.name}</h2>
+                                <!-- Nombre/Puesto sin truncar, visible completo en 2 o más líneas -->
+                                <h2 class="font-extrabold text-xs text-slate-800 dark:text-slate-100 leading-normal break-words pr-1">${c.name}</h2>
                             </div>
                         </div>
 
                         <!-- Botón Favoritos -->
-                        <button onclick="toggleFav(${c.id})" class="p-1.5 text-slate-300 dark:text-slate-600 hover:text-amber-400 active:scale-90 transition-all shrink-0">
+                        <button onclick="toggleFav(${c.id})" class="p-1.5 text-slate-300 dark:text-slate-600 hover:text-amber-400 active:scale-90 transition-all shrink-0 -mt-1 -mr-1">
                             <i data-lucide="star" class="w-4 h-4 ${isFav ? 'fill-amber-400 text-amber-400' : ''}"></i>
                         </button>
                     </div>
 
-                    <!-- Fila de Acciones Móviles -->
-                    <div class="flex items-center justify-between pt-2.5 border-t border-slate-100 dark:border-caherengo-borderDark/50">
-                        <!-- Botón copiar número -->
-                        <button onclick="copyPhone('${c.phone}')" class="flex items-center space-x-1.5 px-2.5 py-2 rounded-xl bg-slate-100 dark:bg-caherengo-bgDark border border-slate-200 dark:border-caherengo-borderDark text-slate-700 dark:text-slate-200 font-mono text-xs font-bold active:scale-95 transition-all">
-                            <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-400"></i>
-                            <span>${c.phone}</span>
+                    <!-- Fila de Acciones Móviles con Número en Una Sola Línea -->
+                    <div class="flex items-center justify-between pt-2.5 border-t border-slate-100 dark:border-caherengo-borderDark/50 gap-2">
+                        <!-- Botón copiar número - Garantizado en 1 Sola Línea (whitespace-nowrap) -->
+                        <button onclick="copyPhone('${c.phone}')" class="flex items-center justify-center space-x-1.5 px-2.5 py-2.5 rounded-xl bg-slate-100 dark:bg-caherengo-bgDark border border-slate-200 dark:border-caherengo-borderDark text-slate-700 dark:text-slate-200 font-mono text-xs font-bold active:scale-95 transition-all whitespace-nowrap flex-1 min-w-0">
+                            <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+                            <span class="whitespace-nowrap tracking-tight">${c.phone}</span>
                         </button>
 
                         <!-- Botones directos para teléfono -->
-                        <div class="flex items-center space-x-1.5">
+                        <div class="flex items-center space-x-1.5 shrink-0">
                             <!-- Llamada directa -->
                             <a href="tel:+${c.raw}" class="btn-action bg-blue-600 text-white" title="Llamar">
                                 <i data-lucide="phone" class="w-4 h-4"></i>
