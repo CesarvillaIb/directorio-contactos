@@ -1,125 +1,418 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Directorio de Contactos</title>
-<style>
-  body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
-  h1 { text-align: center; }
-  .contact { background: white; padding: 15px; margin: 10px auto; border-radius: 8px; max-width: 400px; box-shadow: 0 0 8px rgba(0,0,0,0.1);}
-  .name { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
-  .phone { color: #555; margin-bottom: 10px; }
-  button {
-    border: none; padding: 8px 15px; border-radius: 5px;
-    cursor: pointer; margin-right: 5px; font-size: 0.9em;
-  }
-  .btn-call { background-color: #007bff; color: white; }
-  .btn-call:hover { background-color: #0056b3; }
-  .btn-sms { background-color: #6c757d; color: white; }
-  .btn-sms:hover { background-color: #5a6268; }
-  .btn-whatsapp { background-color: #25D366; color: white; }
-  .btn-whatsapp:hover { background-color: #1ebe57; }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Caherengo Seguridad Privada - Directorio Operativo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        caherengo: {
+                            950: '#071121',
+                            900: '#0b1d3a', // Azul marino corporativo Caherengo
+                            800: '#132d56',
+                            700: '#1b3f75',
+                            600: '#255498',
+                            500: '#2f6bc4',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#d97706',
+                            600: '#b45309',
+                            goldAcc: '#d4af37',
+                        },
+                        wa: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    },
+                    boxShadow: {
+                        'glass-navy': '0 8px 32px 0 rgba(7, 17, 33, 0.45)',
+                        'gold-glow': '0 0 25px -3px rgba(212, 175, 55, 0.35)',
+                        'blue-glow': '0 0 25px -3px rgba(37, 84, 152, 0.45)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        
+        /* Custom Glassmorphism for Caherengo */
+        .glass-card-dark {
+            background: rgba(11, 29, 58, 0.75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+        }
+
+        .glass-card-light {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(19, 45, 86, 0.12);
+        }
+
+        .glass-nav-dark {
+            background: rgba(7, 17, 33, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .glass-nav-light {
+            background: rgba(241, 245, 249, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Hide Scrollbars */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Card Transitions */
+        .contact-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .contact-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Corporate Gradient */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-badge {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(180, 83, 9, 0.2) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: #fef08a;
+        }
+
+        .shield-bg {
+            background: linear-gradient(135deg, #132d56 0%, #071121 100%);
+        }
+    </style>
 </head>
-<body>
-<h1>Directorio de Contactos</h1>
 
-<div class="contact">
-  <div class="name">MONITOREO BRAVO,DELTA Y CHARLY </div>
-  <div class="phone">33 3400 5492</div>
-  <button class="btn-call" onclick="location.href='tel:+523334005492'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523334005492'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523334005492'">WhatsApp</button>
-</div>
+<body class="min-h-screen bg-caherengo-950 text-slate-100 transition-colors duration-300 dark:bg-caherengo-950 dark:text-slate-100 flex justify-center items-start sm:py-6">
 
-  <div class="contact">
-  <div class="name">MONITOREO GOLF,ECO, Y LIMA </div>
-  <div class="phone">33 1844 7329</div>
-  <button class="btn-call" onclick="location.href='tel:+523318447329'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523318447329'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523318447329'">WhatsApp</button>
-</div>
+    <!-- Ambient Background Glows -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-96 bg-caherengo-600/20 blur-[130px] pointer-events-none rounded-full"></div>
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-96 bg-gold-500/10 blur-[130px] pointer-events-none rounded-full"></div>
 
-<div class="contact">
-  <div class="name">MONITOREO OMEGA,SIGMA Y ALFA</div>
-  <div class="phone">33 2833 0182</div>
-  <button class="btn-call" onclick="location.href='tel:+523328330182'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523328330182'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523328330182'">WhatsApp</button>
-</div>
+    <!-- Phone Wrapper App Frame -->
+    <div class="w-full max-w-md min-h-screen sm:min-h-[880px] sm:h-[880px] sm:rounded-[40px] bg-caherengo-950/95 shadow-2xl overflow-hidden flex flex-col relative border border-caherengo-800/80 backdrop-blur-2xl">
+        
+        <!-- Header Sticky Top Bar -->
+        <header id="header-bar" class="sticky top-0 z-40 px-5 pt-6 pb-4 transition-all duration-300 glass-nav-dark border-b border-caherengo-800/60">
+            <!-- Top Controls & Branding Row -->
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-3">
+                    <!-- Caherengo Shield Badge Icon -->
+                    <div class="w-11 h-11 rounded-2xl shield-bg border border-gold-goldAcc/40 flex items-center justify-center shadow-gold-glow text-gold-goldAcc">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-1.5">
+                            <h1 class="text-base font-black tracking-wider text-white uppercase">CAHERENGO</h1>
+                        </div>
+                        <p class="text-[10px] font-extrabold gold-gradient-text uppercase tracking-widest">SEGURIDAD PRIVADA</p>
+                    </div>
+                </div>
 
-<div class="contact">
-  <div class="name">LiIDER DE MONITOREO</div>
-  <div class="phone">33 3454 6535</div>
-  <button class="btn-call" onclick="location.href='tel:+523334546535'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523334546535'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523334546535'">WhatsApp</button>
-</div>
+                <!-- Controls: Theme Toggle & Counter -->
+                <div class="flex items-center space-x-2">
+                    <button id="theme-toggle" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-caherengo-900/90 hover:bg-caherengo-800 border border-caherengo-700/60 text-amber-400 transition-all duration-200 active:scale-95 shadow-sm" title="Cambiar tema">
+                        <i data-lucide="sun" id="theme-icon" class="w-4 h-4"></i>
+                    </button>
+                    <span id="contact-count" class="text-xs font-extrabold bg-caherengo-900/90 border border-gold-goldAcc/30 text-amber-300 px-3 py-1.5 rounded-xl shadow-sm">
+                        12
+                    </span>
+                </div>
+            </div>
 
-<div class="contact">
-  <div class="name">VACACIONES / ASISTENCIAS</div>
-  <div class="phone">33 3201 6865</div>
-  <button class="btn-call" onclick="location.href='tel:+523332016865'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523332016865'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523332016865'">WhatsApp</button>
-</div>
+            <!-- Subtitle/Slogan Banner -->
+            <div class="mb-3 px-3 py-1.5 rounded-xl bg-caherengo-900/50 border border-caherengo-800/80 flex items-center space-x-2 text-[11px] text-slate-300 font-medium">
+                <i data-lucide="radio-receiver" class="w-3.5 h-3.5 text-gold-goldAcc shrink-0"></i>
+                <span class="truncate">Directorio Operativo de Contactos / Control y Monitoreo</span>
+            </div>
 
-<div class="contact">
-  <div class="name">DIRECTOR RECURSOS HUMANOS</div>
-  <div class="phone">33 3201 0449</div>
-  <button class="btn-call" onclick="location.href='tel:+523332010449'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523332010449'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523332010449'">WhatsApp</button>
-</div>
+            <!-- Glassmorphism Search Bar -->
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-amber-400 transition-colors">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </div>
+                <input 
+                    type="text" 
+                    id="search-input"
+                    placeholder="Buscar área, personal o número..." 
+                    class="w-full pl-10 pr-10 py-3 bg-caherengo-900/80 text-slate-100 placeholder-slate-400 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gold-goldAcc/80 border border-caherengo-700/60 transition-all shadow-inner"
+                />
+                <button id="clear-search" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200">
+                    <i data-lucide="x-circle" class="w-4 h-4"></i>
+                </button>
+            </div>
 
-<div class="contact">
-  <div class="name">RECLUTAMIENTO</div>
-  <div class="phone">33 1865 8787</div>
-  <button class="btn-call" onclick="location.href='tel:+523318658787'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523318658787'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523318658787'">WhatsApp</button>
-</div>
+            <!-- Category Filter Chips -->
+            <div class="flex space-x-2 mt-3.5 overflow-x-auto no-scrollbar py-0.5 text-xs font-semibold">
+                <button onclick="filterCategory('ALL', this)" class="cat-chip active px-4 py-2 rounded-xl bg-caherengo-600 text-white shadow-blue-glow border border-caherengo-500/50 whitespace-nowrap transition-all duration-200">Todos</button>
+                <button onclick="filterCategory('MONITOREO', this)" class="cat-chip px-4 py-2 rounded-xl bg-caherengo-900/80 hover:bg-caherengo-800 text-slate-300 border border-caherengo-700/60 whitespace-nowrap transition-all duration-200">Monitoreo</button>
+                <button onclick="filterCategory('RRHH', this)" class="cat-chip px-4 py-2 rounded-xl bg-caherengo-900/80 hover:bg-caherengo-800 text-slate-300 border border-caherengo-700/60 whitespace-nowrap transition-all duration-200">Recursos Humanos</button>
+                <button onclick="filterCategory('OPERACIONES', this)" class="cat-chip px-4 py-2 rounded-xl bg-caherengo-900/80 hover:bg-caherengo-800 text-slate-300 border border-caherengo-700/60 whitespace-nowrap transition-all duration-200">Operaciones</button>
+            </div>
+        </header>
 
-<div class="contact">
-  <div class="name">RECURSOS HUMANOS</div>
-  <div class="phone">33 1248 4767</div>
-  <button class="btn-call" onclick="location.href='tel:+523312484767'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523312484767'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523312484767'">WhatsApp</button>
-</div>
+        <!-- Main Scrollable Contacts View -->
+        <main class="flex-1 overflow-y-auto px-4 py-4 space-y-3.5 no-scrollbar" id="contacts-container">
+            <!-- Dynamic Injection via JavaScript -->
+        </main>
 
-<div class="contact">
-  <div class="name">RECURSOS HUMANOS TLJ</div>
-  <div class="phone">33 2834 5225</div>
-  <button class="btn-call" onclick="location.href='tel:+523328345225'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523328345225'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523328345225'">WhatsApp</button>
-</div>
+        <!-- Empty Search State -->
+        <div id="no-results" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center my-auto">
+            <div class="w-16 h-16 rounded-3xl bg-caherengo-900/80 border border-caherengo-700/60 flex items-center justify-center text-slate-500 mb-4 shadow-xl">
+                <i data-lucide="shield-alert" class="w-8 h-8 text-amber-500/80"></i>
+            </div>
+            <p class="font-bold text-slate-200 text-base">Contacto no encontrado</p>
+            <p class="text-xs text-slate-400 mt-1">No hay líneas activas que coincidan con el término ingresado.</p>
+        </div>
 
-<div class="contact">
-  <div class="name">RECLUTAMIENTO</div>
-  <div class="phone">33 1186 9575</div>
-  <button class="btn-call" onclick="location.href='tel:+523311869575'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523311869575'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523311869575'">WhatsApp</button>
-</div>
+        <!-- Floating Toast Notification -->
+        <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-caherengo-900/95 text-slate-100 border border-gold-goldAcc/40 text-xs font-semibold px-4 py-3 rounded-2xl shadow-2xl opacity-0 pointer-events-none transition-all duration-300 flex items-center space-x-2.5 z-50 backdrop-blur-xl">
+            <div class="p-1 rounded-full bg-emerald-500/20 text-emerald-400">
+                <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            </div>
+            <span id="toast-message">Número copiado al portapapeles</span>
+        </div>
 
-<div class="contact">
-  <div class="name">ALMACÉN</div>
-  <div class="phone">33 1865 8784</div>
-  <button class="btn-call" onclick="location.href='tel:+523318658784'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523318658784'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523318658784'">WhatsApp</button>
-</div>
+    </div>
 
-<div class="contact">
-  <div class="name">CABINA</div>
-  <div class="phone">33 1865 8783</div>
-  <button class="btn-call" onclick="location.href='tel:+523318658783'">Llamar</button>
-  <button class="btn-sms" onclick="location.href='sms:+523318658783'">Mensaje</button>
-  <button class="btn-whatsapp" onclick="location.href='https://wa.me/523318658783'">WhatsApp</button>
-</div>
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Official Caherengo Security Directory Contacts
+        const contactsData = [
+            { id: 1, name: "MONITOREO BRAVO, DELTA Y CHARLY", phone: "33 3400 5492", rawPhone: "+523334005492", category: "MONITOREO", icon: "shield-alert", badgeBg: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
+            { id: 2, name: "MONITOREO GOLF, ECO Y LIMA", phone: "33 1844 7329", rawPhone: "+523318447329", category: "MONITOREO", icon: "radio", badgeBg: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
+            { id: 3, name: "MONITOREO OMEGA, SIGMA Y ALFA", phone: "33 2833 0182", rawPhone: "+523328330182", category: "MONITOREO", icon: "eye", badgeBg: "bg-sky-500/15 text-sky-300 border-sky-500/30" },
+            { id: 4, name: "LÍDER DE MONITOREO", phone: "33 3454 6535", rawPhone: "+523334546535", category: "MONITOREO", icon: "user-check", badgeBg: "gold-badge" },
+            { id: 5, name: "VACACIONES / ASISTENCIAS", phone: "33 3201 6865", rawPhone: "+523332016865", category: "RRHH", icon: "calendar-heart", badgeBg: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+            { id: 6, name: "DIRECTOR RECURSOS HUMANOS", phone: "33 3201 0449", rawPhone: "+523332010449", category: "RRHH", icon: "briefcase", badgeBg: "bg-purple-500/15 text-purple-300 border-purple-500/30" },
+            { id: 7, name: "RECLUTAMIENTO", phone: "33 1865 8787", rawPhone: "+523318658787", category: "RRHH", icon: "user-plus", badgeBg: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+            { id: 8, name: "RECURSOS HUMANOS", phone: "33 1248 4767", rawPhone: "+523312484767", category: "RRHH", icon: "users", badgeBg: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+            { id: 9, name: "RECURSOS HUMANOS TLJ", phone: "33 2834 5225", rawPhone: "+523328345225", category: "RRHH", icon: "building-2", badgeBg: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+            { id: 10, name: "RECLUTAMIENTO", phone: "33 1186 9575", rawPhone: "+523311869575", category: "RRHH", icon: "user-search", badgeBg: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
+            { id: 11, name: "ALMACÉN", phone: "33 1865 8784", rawPhone: "+523318658784", category: "OPERACIONES", icon: "box", badgeBg: "bg-amber-500/15 text-amber-300 border-amber-500/30" },
+            { id: 12, name: "CABINA", phone: "33 1865 8783", rawPhone: "+523318658783", category: "OPERACIONES", icon: "headphones", badgeBg: "bg-amber-500/15 text-amber-300 border-amber-500/30" }
+        ];
 
+        // Favorites and Filter state stores
+        let favorites = JSON.parse(localStorage.getItem('caherengo_favs') || '[]');
+        let currentCategory = 'ALL';
+        let searchQuery = '';
+        let isDarkMode = true;
+
+        // Element references
+        const contactsContainer = document.getElementById('contacts-container');
+        const searchInput = document.getElementById('search-input');
+        const clearSearchBtn = document.getElementById('clear-search');
+        const noResults = document.getElementById('no-results');
+        const contactCount = document.getElementById('contact-count');
+        const toast = document.getElementById('toast');
+
+        function renderContacts() {
+            contactsContainer.innerHTML = '';
+
+            let filtered = contactsData.filter(contact => {
+                const matchesCat = currentCategory === 'ALL' || contact.category === currentCategory;
+                const matchesSearch = contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      contact.phone.replace(/\s+/g, '').includes(searchQuery.replace(/\s+/g, ''));
+                return matchesCat && matchesSearch;
+            });
+
+            // Sort Favorites to Top
+            filtered.sort((a, b) => {
+                const aIsFav = favorites.includes(a.id);
+                const bIsFav = favorites.includes(b.id);
+                if (aIsFav && !bIsFav) return -1;
+                if (!aIsFav && bIsFav) return 1;
+                return 0;
+            });
+
+            contactCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'contacto' : 'contactos'}`;
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            filtered.forEach(contact => {
+                const isFav = favorites.includes(contact.id);
+                const card = document.createElement('div');
+                card.className = `contact-card glass-card-dark dark:glass-card-dark p-4 rounded-3xl relative flex flex-col justify-between shadow-lg hover:shadow-gold-glow transition-all duration-300`;
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-start space-x-3">
+                            <div class="p-3 rounded-2xl bg-caherengo-900/90 border border-caherengo-700/60 text-gold-goldAcc flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                                <i data-lucide="${contact.icon}" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="inline-block px-2.5 py-0.5 text-[10px] font-bold rounded-full border ${contact.badgeBg} mb-1 uppercase tracking-wider">
+                                    ${contact.category}
+                                </span>
+                                <h3 class="font-extrabold text-slate-100 text-sm leading-snug pr-2">${contact.name}</h3>
+                            </div>
+                        </div>
+
+                        <!-- Favorite Star Button -->
+                        <button onclick="toggleFavorite(${contact.id})" class="p-1.5 rounded-xl hover:bg-caherengo-800 text-slate-500 hover:text-amber-400 transition-colors" title="Fijar a favoritos">
+                            <i data-lucide="star" class="w-4 h-4 ${isFav ? 'fill-amber-400 text-amber-400' : ''}"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-3 border-t border-caherengo-800/80">
+                        <!-- Click to copy phone number -->
+                        <button onclick="copyNumber('${contact.phone}')" class="group/num flex items-center space-x-2 text-slate-300 hover:text-gold-goldAcc font-bold text-xs sm:text-sm bg-caherengo-900/60 hover:bg-caherengo-800/90 px-3 py-2 rounded-xl border border-caherengo-700/50 transition-all">
+                            <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-400 group-hover/num:text-gold-goldAcc"></i>
+                            <span class="tracking-wider font-mono">${contact.phone}</span>
+                        </button>
+
+                        <!-- Fast Action Buttons Grid -->
+                        <div class="flex items-center space-x-2">
+                            <!-- Call Button -->
+                            <a href="tel:${contact.rawPhone}" class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-caherengo-600 to-caherengo-500 text-white flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all" title="Llamar directamente">
+                                <i data-lucide="phone" class="w-4 h-4"></i>
+                            </a>
+
+                            <!-- SMS Button -->
+                            <a href="sms:${contact.rawPhone}" class="w-10 h-10 rounded-2xl bg-caherengo-800 hover:bg-caherengo-700 text-slate-200 border border-caherengo-600/50 flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all" title="Enviar SMS">
+                                <i data-lucide="message-square" class="w-4 h-4"></i>
+                            </a>
+
+                            <!-- WhatsApp Button -->
+                            <a href="https://wa.me/${contact.rawPhone.replace('+', '')}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-wa-500 text-white flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all" title="Abrir WhatsApp">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                contactsContainer.appendChild(card);
+            });
+
+            // Re-initialize Lucide Icons
+            lucide.createIcons();
+        }
+
+        function filterCategory(cat, element) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-chip').forEach(btn => {
+                btn.classList.remove('bg-caherengo-600', 'text-white', 'shadow-blue-glow');
+                btn.classList.add('bg-caherengo-900/80', 'text-slate-300');
+            });
+
+            element.classList.remove('bg-caherengo-900/80', 'text-slate-300');
+            element.classList.add('bg-caherengo-600', 'text-white', 'shadow-blue-glow');
+
+            renderContacts();
+        }
+
+        // Favorites handler
+        function toggleFavorite(id) {
+            if (favorites.includes(id)) {
+                favorites = favorites.filter(favId => favId !== id);
+                showToast("Quitado de favoritos");
+            } else {
+                favorites.push(id);
+                showToast("Añadido a favoritos ⭐");
+            }
+            localStorage.setItem('caherengo_favs', JSON.stringify(favorites));
+            renderContacts();
+        }
+
+        // Search Handlers
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            if (searchQuery.length > 0) {
+                clearSearchBtn.classList.remove('hidden');
+            } else {
+                clearSearchBtn.classList.add('hidden');
+            }
+            renderContacts();
+        });
+
+        function clearSearch() {
+            searchInput.value = '';
+            searchQuery = '';
+            clearSearchBtn.classList.add('hidden');
+            renderContacts();
+        }
+
+        // Copy Clipboard & Toast Notification
+        function copyNumber(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast(`Número ${text} copiado`);
+        }
+
+        function showToast(msg) {
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2200);
+        }
+
+        // Theme Switcher
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                html.classList.add('dark');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            } else {
+                html.classList.remove('dark');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        }
+
+        // Start animation and application render on load
+        window.onload = function() {
+            lucide.createIcons();
+            renderContacts();
+        }
+    </script>
 </body>
 </html>
